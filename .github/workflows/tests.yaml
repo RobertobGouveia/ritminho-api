@@ -1,4 +1,4 @@
-name: CI - NestJS
+name: unit-tests
 
 on:
   push:
