@@ -41,13 +41,13 @@ describe('RegisterAuthUsecase', () => {
         babies: [
             {
                 name: 'Baby 1',
-                birthDate: new Date('2022-01-01'),
-                gender: 'M',
+                birthDate: new Date('2020-05-20T22:34:00.000Z'),
+                gender: 'male',
             },
             {
                 name: 'Baby 2',
-                birthDate: new Date('2025-05-26'),
-                gender: 'M'
+                birthDate: new Date('2020-05-20T22:34:00.000Z'),
+                gender: 'male'
             }
         ],
       },
@@ -64,7 +64,10 @@ describe('RegisterAuthUsecase', () => {
     });
     expect(createBabyUseCase.execute).toHaveBeenCalledWith({
       userId: 'user-123',
-      babies: [{ name: 'Bebê 1' }],
+      babies: [
+        { name: 'Baby 1', birthDate: new Date('2020-05-20T22:34:00.000Z'), gender: 'male' },
+        { name: 'Baby 2', birthDate: new Date('2020-05-20T22:34:00.000Z'), gender: 'male' },
+      ],
     });
 
     expect(result).toEqual({
