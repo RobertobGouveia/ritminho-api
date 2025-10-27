@@ -25,14 +25,14 @@ describe('RegisterAuthUsecase', () => {
     } as any;
 
     usecase = new RegisterAuthUsecase(
-      validator,
+      validator,  
       authRepository,
       createUserUseCase,
       createBabyUseCase,
     );
   });
 
-  it('deve registrar um novo usuário com sucesso', async () => {
+  it('must register a new user successfully', async () => {
     const input = {
       email: 'test@test.com',
       password: 'senha123',
@@ -51,7 +51,7 @@ describe('RegisterAuthUsecase', () => {
             }
         ],
       },
-    };
+      };
 
     const result = await usecase.execute(input);
 

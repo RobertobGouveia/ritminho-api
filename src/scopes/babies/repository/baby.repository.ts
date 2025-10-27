@@ -12,7 +12,7 @@ export class BabyRepository {
        return this.babyRepositoryTypeorm.save(baby)
     }
 
-    upodate(baby: Baby): Promise<Baby>{
+    update(baby: Baby): Promise<Baby>{
        return this.babyRepositoryTypeorm.save(baby)
     }
 
