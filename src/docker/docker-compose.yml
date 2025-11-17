@@ -13,5 +13,22 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
 
+    api:
+      build:
+        context: .
+        dockerfile: dockerfile
+      container_name: ritminho-api
+      ports:
+        - "3000:3000"
+      environment:
+        - DB_TYPE=postgres
+        - DB_HOST=db
+        - DB_PORT=5432
+        - DB_USERNAME=postgres
+        - DB_PASSWORD=${DB_PASSWORD}
+        - DB_NAME=ritminho
+      depends_on: 
+        - db
+        
 volumes:
   db_data: 
