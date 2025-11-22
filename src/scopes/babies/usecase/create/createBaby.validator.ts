@@ -1,9 +1,9 @@
 import * as Joi from "joi";
 import BaseValidator from "src/infrastructure/validator/baseValidator";
-import { CreateBabyUseCaseInput } from "./createBaby.usecase.input";
 import RequestEnding from "src/infrastructure/exceptions/RequestEnding";
 import { HttpStatus, Injectable } from "@nestjs/common";
-import { Baby } from "../entity/babies.entity";
+import { Baby } from "../../entity/babies.entity";
+import { CreateBabyUseCaseInput } from "./createBaby.usecase.input";
 
 @Injectable()
 export default class CreateBabyValidator implements BaseValidator<CreateBabyUseCaseInput>{

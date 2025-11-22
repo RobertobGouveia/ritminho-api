@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
-import CreateUserUseCase from "./createUser.usecase";
-import { UserRepositoryModule } from "../repository/user.repository.module";
-import CreateUserValidator from "./createUser.validator";
 import { AuthRepositoryModule } from "src/scopes/auth/repository";
+import { UserRepositoryModule } from "../../repository";
+import CreateUserUseCase from "./createUser.usecase";
+import CreateUserValidator from "./createUser.validator";
 
 @Module({
     imports: [ UserRepositoryModule, AuthRepositoryModule ],

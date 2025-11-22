@@ -11,4 +11,16 @@ export class DiaperChangesRepository {
     create(diaperChanges: DiaperChanges): Promise<DiaperChanges>{
         return this.diaperChangesTypeOrmRepository.save(diaperChanges)
     }
+
+    findByBabyId(babyId: string): Promise<DiaperChanges[]>{
+        return this.diaperChangesTypeOrmRepository.find({
+            where: {baby:{
+                id: babyId
+            }},
+            relations: ['baby'],
+            order: {
+                createdAt: 'DESC'
+            }
+        })
+    }
 }

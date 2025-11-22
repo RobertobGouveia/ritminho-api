@@ -11,4 +11,18 @@ export class MoodRepository {
     create(mood: Mood[]): Promise<Mood[]> {
        return this.moodTypeOrmRepostory.save(mood)
     }
+
+    findByBabyId(babyId: string): Promise<Mood[]>{
+        return this.moodTypeOrmRepostory.find({
+            where: {
+                baby: {
+                    id: babyId
+                }
+            },
+            relations: ['baby'],
+            order: {
+                createdAt: 'DESC'
+            }
+        })
+    }
 }

@@ -1,11 +1,11 @@
 import BaseUseCase from "src/infrastructure/usecase/baseUseCase";
 import { CreateBabyUseCaseInput } from "./createBaby.usecase.input";
 import { CreateBabyUseCaseOutput } from "./createBaby.usecase.output";
-import CreateBabyValidator from "./createBaby.validator";
-import { Baby } from "../entity/babies.entity";
-import { BabyRepository } from "../repository/baby.repository";
+import { Baby } from "../../entity/babies.entity";
+import { BabyRepository } from "../../repository/baby.repository";
 import { Injectable } from "@nestjs/common";
 import { UserRepository } from "src/scopes/users/repository";
+import CreateBabyValidator from "./createBaby.validator";
 
 @Injectable()
 export default class CreateBabyUseCase implements BaseUseCase<CreateBabyUseCaseInput, CreateBabyUseCaseOutput>{

@@ -11,4 +11,18 @@ export class FeedingsRepository {
     create(feedings: Feedings): Promise<Feedings>{
        return this.feedingsTypeOrRepository.save(feedings)
     }
+
+    findByBabyId(babyId: string): Promise<Feedings[]>{
+        return this.feedingsTypeOrRepository.find({
+            where: {
+                baby: {
+                    id: babyId
+                }
+            },
+            relations: ['baby'],
+            order: {
+                createdAt: 'DESC'
+            }
+        })
+    }
 }

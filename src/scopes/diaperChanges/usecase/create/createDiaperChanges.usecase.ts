@@ -20,8 +20,8 @@ export class CreateDiaperChangesUseCase implements BaseUseCase<CreateDiaperChang
 
         const baby = await this.babyRepository.findById(input.babyId)
 
-        if(!!baby) {
-            console.log(`There is no baby with the id: ${baby.id}`)
+        if(!baby) {
+            console.log(`There is no baby with the id: ${input.babyId}`)
         }
         
         const diaperChanges = new DiaperChanges();

@@ -11,4 +11,18 @@ export class NapsRepository {
     create(naps: Naps[]): Promise<Naps[]>{
         return this.napsTypeOrmRepository.save(naps)
     }
+
+    findByBabyId(babyId: string): Promise<Naps[]>{
+        return this.napsTypeOrmRepository.find({
+            where: {
+                baby: {
+                    id: babyId
+                }
+            },
+            relations: ['baby'],
+            order: {
+                createdAt: 'DESC'
+            }
+        })
+    }
 }

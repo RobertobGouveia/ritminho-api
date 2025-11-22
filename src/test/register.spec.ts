@@ -1,5 +1,5 @@
-import CreateUserUseCase from 'src/scopes/users/usecase/createUser.usecase';
-import CreateBabyUseCase from 'src/scopes/babies/usecase/createBaby.usecase';
+import CreateUserUseCase from 'src/scopes/users/usecase/create/createUser.usecase';
+import CreateBabyUseCase from 'src/scopes/babies/usecase/create/createBaby.usecase';
 import { RegisterAuthValidator } from 'src/scopes/auth/usecase/register/registerAuth.validator';
 import { AuthRepository } from 'src/scopes/auth/repository';
 import RegisterAuthUsecase from 'src/scopes/auth/usecase/register/registerAuth.usecase';

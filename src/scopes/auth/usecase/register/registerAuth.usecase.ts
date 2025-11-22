@@ -4,8 +4,8 @@ import { RegisterAuthUseCaseInput } from "./registerAuth.usecase.input";
 import { RegisterAuthUseCaseOutput } from "./registerAuth.usecase.output";
 import { RegisterAuthValidator } from "./registerAuth.validator";
 import AuthBuilder from "../../builders/auth.builder";
-import CreateUserUseCase from "src/scopes/users/usecase/createUser.usecase";
-import CreateBabyUseCase from "src/scopes/babies/usecase/createBaby.usecase";
+import CreateUserUseCase from "src/scopes/users/usecase/create/createUser.usecase";
+import CreateBabyUseCase from "src/scopes/babies/usecase/create/createBaby.usecase";
 import { Injectable } from "@nestjs/common";
 
 @Injectable()
@@ -34,7 +34,7 @@ export default class RegisterAuthUsecase implements BaseUseCase<RegisterAuthUseC
 
         const user = await this.createUserUseCase.execute({
             authId: auth.id,
-            name: input.user.name,
+            name: input.user.name
         })
 
         const createBabies = await this.createBabyUseCase.execute({
