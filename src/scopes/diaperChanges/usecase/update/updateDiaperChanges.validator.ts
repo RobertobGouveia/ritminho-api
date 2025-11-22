@@ -15,6 +15,10 @@ export class UpdateDiaperChangesValidator implements BaseValidator<UpdateDiaperC
                 .string()
                 .required(),
 
+            diaperId: Joi
+                .string()
+                .required(),
+
             type: Joi
                 .string()
                 .valid(...Object.values(DiaperTypesEnum))

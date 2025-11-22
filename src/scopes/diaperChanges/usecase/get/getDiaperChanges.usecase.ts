@@ -28,6 +28,7 @@ export class GetDiaperChangesUseCase implements BaseUseCase<GetDiaperChangesUseC
         
 
         return diaperChanges.map(change => ({
+            diaperId: change.id,
             type: change.type,
             details: change.details ?? '',
         }))

@@ -1,7 +1,8 @@
-export class GetDiaperChangesUseCaseOutput {
+export class UpdateDiaperChangesRequest {
+    babyId: string;
     diaperId: string;
-    type: DiaperTypesEnum;
-    details: string;
+    type?: DiaperTypesEnum;
+    details?: string;
 }
 
 enum DiaperTypesEnum {

@@ -19,6 +19,7 @@ export class UpdateDiaperChangesUseCase implements BaseUseCase<UpdateDiaperChang
         if(!baby){
             throw new NotFoundException("Baby not found")
         }
+        console.log(baby)
 
         const diaperChange = baby.diaper.find(d => d.id === input.diaperId)
 
