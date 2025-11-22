@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "../../users/entity/user.entity";
 import { Feedings } from "../../feedings/entity/feedings.entity";
 import { Activities } from "src/scopes/activities/entities/activities.entity";
@@ -42,6 +42,6 @@ export class Baby {
     @CreateDateColumn({ name: 'CREATED_AT' })
     createdAt: Date;
 
-    @CreateDateColumn({ name: 'UPDATED_AT'})
+    @UpdateDateColumn({ name: 'UPDATED_AT'})
     updatedAt: Date;
 }
