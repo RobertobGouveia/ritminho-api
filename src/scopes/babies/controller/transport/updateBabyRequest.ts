@@ -1,4 +1,4 @@
-export class UpdateBabyUseCaseInput {
+export class UpdateBabyRequest{
     babyId: string;
     name?: string;
     birthDate?: Date;

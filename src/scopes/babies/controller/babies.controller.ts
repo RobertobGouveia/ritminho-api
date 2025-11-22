@@ -1,15 +1,18 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put } from "@nestjs/common";
 import CreateBabyUseCase from "../usecase/create/createBaby.usecase";
 import { CreateBabyRequest } from "./transport/createBaby.request";
 import { CreateActivitiesUseCaseOutput } from "src/scopes/activities/usecases/create/createActivities.usecase.output";
 import { GetBabyResponse } from "./transport/getBabyResponse";
 import GetBabyUseCase from "../usecase/get/getBaby.usecase";
+import { UpdateBabyRequest } from "./transport/updateBabyRequest";
+import { UpdateBabyUseCase } from "../usecase/update/updateBaby.usecase";
 
 @Controller('v1/baby')
 export class BabyController {
     constructor(
         private readonly createBabyUseCase: CreateBabyUseCase,
-        private readonly getBabyUseCase: GetBabyUseCase
+        private readonly getBabyUseCase: GetBabyUseCase,
+        private readonly updateBabyUsCase: UpdateBabyUseCase
     ){}
 
     @Post('/create')
@@ -37,5 +40,19 @@ export class BabyController {
             birthDate: result.birthDate,
             gender: result.gender
         }
+    }
+
+    @Put('/update/:babyId')
+    @HttpCode(HttpStatus.OK)
+    async updateBaby(
+        @Param('babyId') babyId: string,
+        @Body() request: UpdateBabyRequest
+    ){
+        return this.updateBabyUsCase.execute({
+            babyId: babyId,
+            name: request.name,
+            birthDate: request.birthDate,
+            gender: request.gender
+        })
     }
 }

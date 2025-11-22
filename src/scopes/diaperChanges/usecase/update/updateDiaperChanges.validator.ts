@@ -1,28 +1,26 @@
 import { HttpStatus, Injectable } from "@nestjs/common";
 import BaseValidator from "src/infrastructure/validator/baseValidator";
-import { UpdateBabyUseCaseInput } from "./updateBaby.usecase.input";
+import { UpdateDiaperChangesUseCaseInput } from "./updateDiaperChanges.usecase.input";
 import * as Joi from "joi";
+import { DiaperTypesEnum } from "../../enum/diaperTypes.enum";
 import RequestEnding from "src/infrastructure/exceptions/RequestEnding";
 
 @Injectable()
-export class UpdateBabyValidator implements BaseValidator<UpdateBabyUseCaseInput>{
+export class UpdateDiaperChangesValidator implements BaseValidator<UpdateDiaperChangesUseCaseInput>{
     constructor(){}
 
-    async validate(input: UpdateBabyUseCaseInput): Promise<void> {
-        const schema = Joi.object({
+    async validate(input: UpdateDiaperChangesUseCaseInput): Promise<void> {
+        const schema = Joi.object<UpdateDiaperChangesUseCaseInput>({
             babyId: Joi
                 .string()
                 .required(),
-            
-            name: Joi
+
+            type: Joi
                 .string()
+                .valid(...Object.values(DiaperTypesEnum))
                 .optional(),
 
-            birthDate: Joi
-                .date()
-                .optional(),
-
-            gender: Joi
+            details: Joi
                 .string()
                 .optional()
         })
@@ -38,6 +36,5 @@ export class UpdateBabyValidator implements BaseValidator<UpdateBabyUseCaseInput
                 }
             )
         }
-        
     }
 }

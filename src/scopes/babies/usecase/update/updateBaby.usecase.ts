@@ -11,35 +11,22 @@ import { Baby } from "../../entity/babies.entity";
 export class UpdateBabyUseCase implements BaseUseCase<UpdateBabyUseCaseInput, UpdateBabyUseCaseOutput>{
     constructor(
         private readonly validator: UpdateBabyValidator,
-        private readonly userRepository: UserRepository,
         private readonly babyRepository: BabyRepository
     ){}
 
     async execute(input?: UpdateBabyUseCaseInput): Promise<UpdateBabyUseCaseOutput> {
         await this.validator.validate(input)
 
-        const user = await this.userRepository.findById(input.userId)
-        if(!user){
-            console.log(`User ${input.userId} not found`)
-            throw new NotFoundException();
-        }
+        const baby = await this.babyRepository.findById(input.babyId)
 
-        const babies: Baby[] = []
-
-        for(const b of user.babies){
-            const baby = await this.babyRepository.findById(b.id)
-            babies.push(baby)
-        }
-
-        await this.babyRepository.update({
-            ...babies,
+        const updatedBaby = await this.babyRepository.update({
+            ...baby,
             name: input.name,
             birthDate: input.birthDate,
             gender: input.gender,
             
         })
         
-        
-        return 
+        return updatedBaby
     }
 }
