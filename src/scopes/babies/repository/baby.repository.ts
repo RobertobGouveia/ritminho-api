@@ -17,6 +17,11 @@ export class BabyRepository {
     }
 
     findById(babyId: string): Promise<Baby>{
-        return this.babyRepositoryTypeorm.findOneBy({ id: babyId })
+        return this.babyRepositoryTypeorm.findOne({ 
+            where: {
+                id: babyId
+            },
+            relations: ['user', 'activities', 'diaper', 'feedings', 'mood', 'naps']
+         })
     }
 }

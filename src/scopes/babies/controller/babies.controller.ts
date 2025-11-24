@@ -38,7 +38,13 @@ export class BabyController {
         return {
             name: result.name,
             birthDate: result.birthDate,
-            gender: result.gender
+            gender: result.gender,
+            activities: result.activities,
+            diaperChanges: result.diaperChanges,
+            feedings: result.feedings,
+            mood: result.mood,
+            naps: result.naps,
+            user: result.user
         }
     }
 

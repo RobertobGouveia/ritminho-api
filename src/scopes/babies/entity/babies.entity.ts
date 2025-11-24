@@ -12,7 +12,7 @@ export class Baby {
     id: string;
 
     @ManyToOne(() => User, user => user.babies)
-    @JoinColumn({ name: 'USER_ID' })
+    @JoinColumn({ name: 'USER_ID', referencedColumnName: 'id' })
     user: User;
 
     @Column({ name: 'NAME' })

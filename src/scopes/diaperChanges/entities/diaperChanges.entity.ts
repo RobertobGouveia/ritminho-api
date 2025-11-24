@@ -8,7 +8,7 @@ export class DiaperChanges {
     id: string;
 
     @ManyToOne(() => Baby, baby => baby.diaper, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'BABY_ID'})
+    @JoinColumn({ name: 'BABY_ID', referencedColumnName: 'id'})
     baby: Baby;
 
     @Column({ name: 'TYPE'})

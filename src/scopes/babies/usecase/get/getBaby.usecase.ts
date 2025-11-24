@@ -23,9 +23,16 @@ export default class GetBabyUseCase implements BaseUseCase<GetBabyUseCaseInput, 
         }
 
         return {
+            id: baby.id,
             name: baby.name,
             birthDate: baby.birthDate,
-            gender: baby.gender
+            gender: baby.gender,
+            user: baby.user.id,
+            activities: baby.activities,
+            diaperChanges: baby.diaper,
+            feedings: baby.feedings,
+            mood: baby.mood,
+            naps: baby.naps
         }
     }
 }

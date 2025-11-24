@@ -8,7 +8,7 @@ export class Mood {
     id: string;
 
     @ManyToOne(() => Baby, baby => baby.mood, { onDelete: 'CASCADE' })
-    @JoinColumn({ name: 'BABY_ID' })
+    @JoinColumn({ name: 'BABY_ID', referencedColumnName: 'id' })
     baby: Baby;
 
     @Column({ name: 'MOOD' })
