@@ -1,5 +1,5 @@
 import { User } from "src/scopes/users/entity/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity({ name: 'AUTH'})
 export class Auth {
@@ -15,7 +15,7 @@ export class Auth {
     @CreateDateColumn( { name: 'CREATED_AT' })
     createdAt: Date;
 
-    @CreateDateColumn({ name: 'UPDATED_AT' })
+    @UpdateDateColumn({ name: 'UPDATED_AT' })
     updatedAt: Date;
 }
 

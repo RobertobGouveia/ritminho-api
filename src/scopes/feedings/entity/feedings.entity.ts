@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { Baby } from "../../babies/entity/babies.entity";
 import { FeedingsTypeEnum } from "../enum/feedings.enum";
 
@@ -26,6 +26,6 @@ export class Feedings {
     @CreateDateColumn({ name: 'CREATED_AT' })
     createdAt: Date;
 
-    @CreateDateColumn({ name: 'UPDATED_AT' })
+    @UpdateDateColumn({ name: 'UPDATED_AT' })
     updatedAt: string;
 }

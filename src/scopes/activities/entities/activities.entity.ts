@@ -1,5 +1,5 @@
 import { Baby } from "src/scopes/babies/entity/babies.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { ActivitiesEnum } from "../enum/activities.enum";
 
 @Entity({ name: 'ACTIVITIES' })
@@ -20,6 +20,6 @@ export class Activities {
     @CreateDateColumn({ name: 'CREATED_AT'})
     createdAt: Date;
 
-    @CreateDateColumn({ name: 'UPDATED_AT'})
+    @UpdateDateColumn({ name: 'UPDATED_AT'})
     updatedAt: Date
 }
