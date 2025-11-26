@@ -24,18 +24,16 @@ export class CreateMoodUseCase implements BaseUseCase<CreateMoodUseCaseInput, Cr
             console.log(`There is no baby with the id: ${baby.id}`)
         }
 
-        const moods: Mood[] = [];
+        const mood = new Mood()
+        mood.baby = baby;
+        mood.moodType = input.mood;
 
-        for(const moodData of input.mood){
-            const mood = new Mood();
-            mood.moodType = moodData.type;
-            mood.baby = baby
-
-            moods.push(mood)
-        }
-
-        const moodSaved = await this.moodRepository.create(moods)
+        const moodSaved = await this.moodRepository.create(mood)
         
-        return moodSaved
+        return {
+            babyId: baby.id,
+            moodId: moodSaved.id,
+            mood: moodSaved.moodType
+        }
     }
 }

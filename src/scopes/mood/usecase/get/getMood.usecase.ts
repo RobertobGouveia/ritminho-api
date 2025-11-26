@@ -26,6 +26,7 @@ export class GetMoodUseCase implements BaseUseCase<GetMoodUseCaseInput, GetMoodU
         const moods = await this.moodRepository.findByBabyId(baby.id)
 
         return moods.map(mood => ({
+            moodId: mood.id,
             mood: {
                 type: mood.moodType
             }

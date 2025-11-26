@@ -1,8 +1,9 @@
 export class GetMoodUseCaseOutput {
-        mood: 
-        {
-            type: MoodTypeEnum
-        }
+    moodId: string;
+    mood: 
+    {
+        type: MoodTypeEnum
+    }
 }
 
 enum MoodTypeEnum {

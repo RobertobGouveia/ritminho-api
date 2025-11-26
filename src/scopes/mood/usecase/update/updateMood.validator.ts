@@ -1,17 +1,21 @@
 import { HttpStatus, Injectable } from "@nestjs/common";
 import BaseValidator from "src/infrastructure/validator/baseValidator";
-import { CreateMoodUseCaseInput } from "./createMood.usecase.input";
+import { UpdateMoodUseCaseInput } from "./updateMood.usecase.input";
 import * as Joi from "joi";
 import { MoodTypeEnum } from "../../enum/mood.enum";
 import RequestEnding from "src/infrastructure/exceptions/RequestEnding";
 
 @Injectable()
-export class CreateMoodValidator implements BaseValidator<CreateMoodUseCaseInput>{
+export class UpdateMoodValidator implements BaseValidator<UpdateMoodUseCaseInput>{
     constructor(){}
 
-    async validate(input: CreateMoodUseCaseInput): Promise<void> {
-        const schema = Joi.object<CreateMoodUseCaseInput>({
+    async validate(input: UpdateMoodUseCaseInput): Promise<void> {
+        const schema = Joi.object({
             babyId: Joi
+                .string()
+                .required(),
+
+            moodId: Joi
                 .string()
                 .required(),
 

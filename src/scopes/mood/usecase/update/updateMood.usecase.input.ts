@@ -1,6 +1,7 @@
-export class CreateMoodUseCaseInput {
+export class UpdateMoodUseCaseInput{
     babyId: string;
-    mood: MoodTypeEnum
+    moodId: string;
+    mood: MoodTypeEnum;
 }
 
 enum MoodTypeEnum {

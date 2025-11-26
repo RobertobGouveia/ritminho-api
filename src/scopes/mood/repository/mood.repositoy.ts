@@ -8,7 +8,7 @@ export class MoodRepository {
         private readonly moodTypeOrmRepostory: MoodTypeOrmRepository
     ){}
 
-    create(mood: Mood[]): Promise<Mood[]> {
+    create(mood: Mood): Promise<Mood> {
        return this.moodTypeOrmRepostory.save(mood)
     }
 
@@ -24,5 +24,17 @@ export class MoodRepository {
                 createdAt: 'DESC'
             }
         })
+    }
+
+    findById(moodId: string): Promise<Mood>{
+        return this.moodTypeOrmRepostory.findOne({
+            where: {
+                id: moodId
+            }
+        })
+    }
+
+    update(mood: Mood): Promise<Mood>{
+        return this.moodTypeOrmRepostory.save(mood)
     }
 }
