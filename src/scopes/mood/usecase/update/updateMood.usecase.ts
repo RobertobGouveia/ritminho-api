@@ -23,11 +23,16 @@ export class UpdateMoodUseCase implements BaseUseCase<UpdateMoodUseCaseInput, Up
             throw new NotFoundException(`Baby ${input.babyId} not found`)
         }
 
-        const mood = await this.moodRepository.findById(input.moodId)        
-        
-        return await this.moodRepository.update({
+        const mood = await this.moodRepository.findByIdAndBabyId(input.moodId, input.babyId)
+                
+        const updatedMood = await this.moodRepository.update({
             ...mood,
-            moodType: input.mood
+            moodType: input.mood ?? mood.moodType
         })
+        
+        return {
+            moodId: updatedMood.id,
+            mood: updatedMood.moodType
+        }
     }
 }

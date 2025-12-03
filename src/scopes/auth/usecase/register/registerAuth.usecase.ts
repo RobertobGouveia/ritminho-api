@@ -21,7 +21,7 @@ export default class RegisterAuthUsecase implements BaseUseCase<RegisterAuthUseC
         await this.validator.validate(input);
 
         const authExists = await this.authRepository.findByEmail(input.email)
-        if(authExists){
+        if(!!authExists){
             console.log(`Email ${authExists.email} already exists.`)
         }
         

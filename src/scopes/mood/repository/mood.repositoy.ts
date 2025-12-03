@@ -26,10 +26,13 @@ export class MoodRepository {
         })
     }
 
-    findById(moodId: string): Promise<Mood>{
+    findByIdAndBabyId(moodId: string, babyId: string): Promise<Mood>{
         return this.moodTypeOrmRepostory.findOne({
             where: {
-                id: moodId
+                id: moodId, baby: {id: babyId}
+            },
+            relations: {
+                baby: true
             }
         })
     }

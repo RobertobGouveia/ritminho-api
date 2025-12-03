@@ -4,12 +4,14 @@ import { UpdateDiaperChangesUseCaseInput } from "./updateDiaperChanges.usecase.i
 import { UpdateDiaperChangesUseCaseOutput } from "./updateDiaperChanges.usecase.output";
 import { UpdateDiaperChangesValidator } from "./updateDiaperChanges.validator";
 import { BabyRepository } from "src/scopes/babies/repository";
+import { DiaperChangesRepository } from "../../repository/diaperChanges.repository";
 
 @Injectable()
 export class UpdateDiaperChangesUseCase implements BaseUseCase<UpdateDiaperChangesUseCaseInput, UpdateDiaperChangesUseCaseOutput>{
     constructor(
         private readonly validator: UpdateDiaperChangesValidator, 
-        private readonly babyRepository: BabyRepository
+        private readonly babyRepository: BabyRepository,
+        private readonly diaperChangesRepository: DiaperChangesRepository
     ){}
 
     async execute(input?: UpdateDiaperChangesUseCaseInput): Promise<UpdateDiaperChangesUseCaseOutput> {
@@ -20,12 +22,18 @@ export class UpdateDiaperChangesUseCase implements BaseUseCase<UpdateDiaperChang
             throw new NotFoundException("Baby not found")
         }
 
-        const diaperChange = baby.diaper.find(d => d.id === input.diaperId)
-
-        diaperChange.type = input.type ?? diaperChange.type;
-        diaperChange.details = input.details ?? diaperChange.details
+        const diaperChange = await this.diaperChangesRepository.findByIdAndBabyId(input.diaperId, input.babyId)
         
+        const updatedDiaperChanges = await this.diaperChangesRepository.update({
+            ...diaperChange,
+            type: input.type,
+            details: input.details
+        })
         
-        return await this.babyRepository.update(baby)
+        return {
+            diaperId: updatedDiaperChanges.id,
+            type: updatedDiaperChanges.type,
+            details: updatedDiaperChanges.details
+        }
     }
 }

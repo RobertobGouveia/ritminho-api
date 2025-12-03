@@ -11,6 +11,7 @@ export class UpdateFeedingsUseCase implements BaseUseCase<UpdateFeedingsUseCaseI
     constructor(
         private readonly validador: UpdateFeedingsValidator,
         private readonly babyRepository: BabyRepository,
+        private readonly feedingsRepository: FeedingsRepository
     ){}
 
     async execute(input?: UpdateFeedingsUseCaseInput): Promise<UpdateFeedingsUseCaseOutput> {
@@ -22,20 +23,22 @@ export class UpdateFeedingsUseCase implements BaseUseCase<UpdateFeedingsUseCaseI
             throw new NotFoundException(`Baby ${input.babyId} not found`)
         }
 
-        const feedings = baby.feedings.find(f => f.id === input.feedingsId)
+        const feedings = await this.feedingsRepository.findByIdAndBabyId(input.feedingsId, input.babyId)
 
-        feedings.type = input.type ?? feedings.type;
-        feedings.volume = input.volume ?? feedings.volume;
-        feedings.startedAt = input.startedAt ?? feedings.startedAt;
-        feedings.endedAt = input.endedAt ?? feedings.endedAt;
+        const updatedFeedings = await this.feedingsRepository.update({
+            ...feedings,
+            type: input.type ?? feedings.type,
+            volume: input.volume ?? feedings.volume,
+            startedAt: input.startedAt ?? feedings.startedAt,
+            endedAt: input.endedAt ?? feedings.endedAt
+        })
 
-        await this.babyRepository.update(baby)
-        
         return {
-            type: feedings.type,
-            volume: feedings.volume,
-            startedAt: feedings.startedAt,
-            endedAt: feedings.endedAt
-        } 
+            feedingsId: updatedFeedings.id,
+            volume: updatedFeedings.volume,
+            type: updatedFeedings.type,
+            startedAt: updatedFeedings.startedAt,
+            endedAt: updatedFeedings.endedAt
+        }
     }
 }

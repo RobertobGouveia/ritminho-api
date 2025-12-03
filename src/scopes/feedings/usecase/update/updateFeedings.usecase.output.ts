@@ -1,8 +1,9 @@
-export class UpdateFeedingsUseCaseOutput {
-    type: FeedingsTypeEnum;
-    volume: number;
-    startedAt: Date;
-    endedAt: Date;
+export class UpdateFeedingsUseCaseOutput{
+    feedingsId: string;
+    type?: FeedingsTypeEnum;
+    volume?: number;
+    startedAt?: Date;
+    endedAt?: Date;
 }
 
 enum FeedingsTypeEnum {

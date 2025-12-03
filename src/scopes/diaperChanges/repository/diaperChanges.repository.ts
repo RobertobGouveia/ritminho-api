@@ -23,4 +23,19 @@ export class DiaperChangesRepository {
             }
         })
     }
+
+    findByIdAndBabyId(id: string, babyId: string): Promise<DiaperChanges>{
+        return this.diaperChangesTypeOrmRepository.findOne({
+            where: {
+                id: id, baby: {id: babyId}
+            },
+            relations: {
+                baby: true
+            }
+        })
+    }
+
+    update(diaperChanges: DiaperChanges): Promise<DiaperChanges>{
+        return this.diaperChangesTypeOrmRepository.save(diaperChanges)
+    }
 }

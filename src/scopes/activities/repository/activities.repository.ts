@@ -11,4 +11,33 @@ export class ActivitiesRepository {
     create(activities: Activities[]): Promise<Activities[]>{
         return this.activitiesTypeOrmRepository.save(activities)
     }
+
+    findByBabyId(id: string): Promise<Activities[]>{
+        return this.activitiesTypeOrmRepository.find({
+            where: {
+                baby: {
+                    id: id
+                }
+            },
+            relations: ['baby'],
+            order: {
+                createdAt: 'DESC'
+            }
+        })
+    }
+
+    findByIdAndBabyId(id: string, babyId: string): Promise<Activities>{
+        return this.activitiesTypeOrmRepository.findOne({
+            where: {
+                id: id, baby: { id: babyId}
+            },
+            relations: {
+                baby: true
+            }
+        })
+    }
+
+    update(activities: Activities): Promise<Activities>{
+        return this.activitiesTypeOrmRepository.save(activities)
+    }
 }

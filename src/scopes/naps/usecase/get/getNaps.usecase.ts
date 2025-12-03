@@ -28,6 +28,7 @@ export class GetNapsUseCase implements BaseUseCase<GetNapsUseCaseInput, GetNapsU
         
         return naps.map(nap => ({
             naps: {
+                id: nap.id,
                 startedAt: nap.startedAt,
                 endedAt: nap.endedAt
             }

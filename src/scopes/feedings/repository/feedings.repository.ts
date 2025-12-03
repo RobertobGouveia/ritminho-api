@@ -25,4 +25,19 @@ export class FeedingsRepository {
             }
         })
     }
+
+    findByIdAndBabyId(id: string, babyId: string): Promise<Feedings>{
+        return this.feedingsTypeOrRepository.findOne({
+            where: {
+                id: id, baby: {id: babyId}
+            },
+            relations: {
+                baby: true
+            }
+        })
+    }
+
+    update(feedings: Feedings): Promise<Feedings>{
+        return this.feedingsTypeOrRepository.save(feedings)
+    }
 }

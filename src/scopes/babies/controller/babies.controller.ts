@@ -1,7 +1,6 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put } from "@nestjs/common";
 import CreateBabyUseCase from "../usecase/create/createBaby.usecase";
 import { CreateBabyRequest } from "./transport/createBaby.request";
-import { CreateActivitiesUseCaseOutput } from "src/scopes/activities/usecases/create/createActivities.usecase.output";
 import { GetBabyResponse } from "./transport/getBabyResponse";
 import GetBabyUseCase from "../usecase/get/getBaby.usecase";
 import { UpdateBabyRequest } from "./transport/updateBabyRequest";

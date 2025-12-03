@@ -25,4 +25,22 @@ export class NapsRepository {
             }
         })
     }
+
+    findByNapsIdAndBabyId(napsId: string, babyId: string): Promise<Naps>{
+        return this.napsTypeOrmRepository.findOne({
+            where: {
+                id: napsId,
+                baby: {
+                    id: babyId
+                }
+            }, 
+            relations: {
+                baby: true
+            }
+        })
+    }
+
+    update(naps: Naps): Promise<Naps>{
+        return this.napsTypeOrmRepository.save(naps)
+    }
 }
