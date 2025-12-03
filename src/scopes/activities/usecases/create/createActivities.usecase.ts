@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import BaseUseCase from "src/infrastructure/usecase/baseUseCase";
 import { CreateActivitiesUseCaseInput } from "./createActivities.usecase.input";
 import { CreateActivitiesUseCaseOutput } from "./createActivities.usecase.output";
@@ -22,7 +22,7 @@ export class CreateActivitesUseCase implements BaseUseCase<CreateActivitiesUseCa
         const baby = await this.babyRepository.findById(input.babyId)
 
         if(!baby) {
-            console.log(`There is no baby with the id: ${input.babyId}`)
+           throw new NotFoundException(`There is no baby with the id: ${input.babyId}`)
         }
         
         const activities: Activities[] = [];

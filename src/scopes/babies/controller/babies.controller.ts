@@ -43,7 +43,9 @@ export class BabyController {
             feedings: result.feedings,
             mood: result.mood,
             naps: result.naps,
-            user: result.user
+            user: result.user,
+            currentLength: result.currentLength,
+            currentWeight: result.currentWeight
         }
     }
 
@@ -57,7 +59,9 @@ export class BabyController {
             babyId: babyId,
             name: request.name,
             birthDate: request.birthDate,
-            gender: request.gender
+            gender: request.gender,
+            currentLength: request.currentLength,
+            currentWeight: request.currentWeight
         })
     }
 }

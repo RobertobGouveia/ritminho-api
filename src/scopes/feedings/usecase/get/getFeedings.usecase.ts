@@ -20,14 +20,12 @@ export class GetFeedingsUseCase implements BaseUseCase<GetFeedingsUseCaseInput, 
         const baby = await this.babyRepository.findById(input.babyId)
 
         if(!baby){
-            console.log(`Baby ${input.babyId} not Found`)
-            throw new NotFoundException();
+            throw new NotFoundException(`Baby ${input.babyId} not Found`);
         }
 
         const feedings = await this.feedingsRepository.findByBabyId(baby.id)
         if(!feedings){
-            console.log('Feedings Not Found')
-            throw new NotFoundException();
+            throw new NotFoundException('Feedings Not Found');
         }
         
         return feedings.map(feeding => ({

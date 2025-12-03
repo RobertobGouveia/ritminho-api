@@ -29,6 +29,8 @@ export default class CreateBabyUseCase implements BaseUseCase<CreateBabyUseCaseI
             baby.birthDate = babyData.birthDate;
             baby.gender = babyData.gender;
             baby.user = user;
+            baby.currentLength = babyData.currentLength;
+            baby.currentWeight = babyData.currentWeight
 
             babies.push(baby)
         }

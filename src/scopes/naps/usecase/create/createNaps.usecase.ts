@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import BaseUseCase from "src/infrastructure/usecase/baseUseCase";
 import { CreateNapsUseCaseInput } from "./createNaps.usecase.input";
 import { CreateNapsUseCaseOutput } from "./createNaps.usecase.output";
@@ -21,7 +21,7 @@ export class CreateNapsUseCase implements BaseUseCase<CreateNapsUseCaseInput, Cr
         const baby = await this.babyRepository.findById(input.babyId)
 
         if(!baby){
-            console.log(`There is no baby with the id: ${baby.id}`)
+           throw new NotFoundException(`There is no baby with the id: ${baby.id}`)
         }
 
         const naps: Naps[] = [];

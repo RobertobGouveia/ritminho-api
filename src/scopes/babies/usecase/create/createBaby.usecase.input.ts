@@ -4,5 +4,7 @@ export class CreateBabyUseCaseInput {
         name: string;
         birthDate: Date;
         gender: string;
+        currentLength: number
+        currentWeight: number;
     }[];
 }

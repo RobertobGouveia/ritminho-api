@@ -24,6 +24,14 @@ export class UpdateBabyValidator implements BaseValidator<UpdateBabyUseCaseInput
 
             gender: Joi
                 .string()
+                .optional(),
+
+            currentLength: Joi
+                .number()
+                .optional(),
+
+            currentWeight: Joi
+                .number()
                 .optional()
         })
 

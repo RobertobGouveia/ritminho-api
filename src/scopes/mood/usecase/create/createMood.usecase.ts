@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import BaseUseCase from "src/infrastructure/usecase/baseUseCase";
 import { CreateMoodUseCaseInput } from "./createMood.usecase.input";
 import { CreateMoodUseCaseOutput } from "./createMood.usecase.output";
@@ -21,7 +21,7 @@ export class CreateMoodUseCase implements BaseUseCase<CreateMoodUseCaseInput, Cr
         const baby = await this.babyRepository.findById(input.babyId);
 
         if(!baby){
-            console.log(`There is no baby with the id: ${baby.id}`)
+            throw new NotFoundException(`There is no baby with the id: ${baby.id}`)
         }
 
         const mood = new Mood()

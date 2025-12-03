@@ -12,5 +12,7 @@ export class User {
 export class Baby {
     name: string;
     birthDate: Date;
-    gender: string
+    gender: string;
+    currentLength: number;
+    currentWeight: number;
 }

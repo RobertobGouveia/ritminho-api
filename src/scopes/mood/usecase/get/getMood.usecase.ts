@@ -19,8 +19,7 @@ export class GetMoodUseCase implements BaseUseCase<GetMoodUseCaseInput, GetMoodU
 
         const baby = await this.babyRepository.findById(input.babyId)
         if(!baby){
-            console.log(`Baby ${input.babyId} not found`)
-            throw new NotFoundException();
+            throw new NotFoundException(`Baby ${input.babyId} not found`);
         }
 
         const moods = await this.moodRepository.findByBabyId(baby.id)

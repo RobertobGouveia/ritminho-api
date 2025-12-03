@@ -12,7 +12,9 @@ export interface GetBabyResponse {
     activities: Activities[];
     naps: Naps[];
     diaperChanges: DiaperChanges[];
-    mood: Mood[]
+    mood: Mood[];
+    currentLength: number;
+    currentWeight: number;
     }
     
 class Feedings {

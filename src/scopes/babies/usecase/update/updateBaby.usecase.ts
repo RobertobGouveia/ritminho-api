@@ -1,11 +1,9 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import BaseUseCase from "src/infrastructure/usecase/baseUseCase";
 import { UpdateBabyUseCaseInput } from "./updateBaby.usecase.input";
 import { UpdateBabyUseCaseOutput } from "./updateBaby.usecase.output";
 import { UpdateBabyValidator } from "./updateBaby.validator";
-import { UserRepository } from "src/scopes/users/repository";
 import { BabyRepository } from "../../repository";
-import { Baby } from "../../entity/babies.entity";
 
 @Injectable()
 export class UpdateBabyUseCase implements BaseUseCase<UpdateBabyUseCaseInput, UpdateBabyUseCaseOutput>{
@@ -24,7 +22,8 @@ export class UpdateBabyUseCase implements BaseUseCase<UpdateBabyUseCaseInput, Up
             name: input.name,
             birthDate: input.birthDate,
             gender: input.gender,
-            
+            currentLength: input.currentLength,
+            currentWeight: input.currentWeight
         })
         
         return updatedBaby

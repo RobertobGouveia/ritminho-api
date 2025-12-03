@@ -3,4 +3,6 @@ export class UpdateBabyUseCaseInput {
     name?: string;
     birthDate?: Date;
     gender?: string;
+    currentLength?: number;
+    currentWeight?: number;
 }

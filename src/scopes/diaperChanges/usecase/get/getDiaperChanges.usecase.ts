@@ -20,8 +20,7 @@ export class GetDiaperChangesUseCase implements BaseUseCase<GetDiaperChangesUseC
         const baby = await this.baby.findById(input.babyId)
 
         if(!baby){
-            console.log(`Baby ${input.babyId} not found`)
-            throw new NotFoundException()
+            throw new NotFoundException(`Baby ${input.babyId} not found`)
         }
         
         const diaperChanges = await this.diaperChanges.findByBabyId(baby.id)

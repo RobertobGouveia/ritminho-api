@@ -20,8 +20,7 @@ export class GetNapsUseCase implements BaseUseCase<GetNapsUseCaseInput, GetNapsU
         const baby = await this.babyRepository.findById(input.babyId)
 
         if(!baby){
-            console.log(`baby ${input.babyId} not found`)
-            throw new NotFoundException();
+            throw new NotFoundException(`baby ${input.babyId} not found`);
         }
 
         const naps = await this.napsRepository.findByBabyId(baby.id)

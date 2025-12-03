@@ -26,6 +26,14 @@ export default class CreateBabyValidator implements BaseValidator<CreateBabyUseC
                         .required(),
                     gender: Joi
                         .string()
+                        .required(),
+
+                    currentLength: Joi
+                        .number()
+                        .required(),
+
+                    currentWeight: Joi
+                        .number()
                         .required()
             }))
         })

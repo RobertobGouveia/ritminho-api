@@ -18,8 +18,7 @@ export default class GetBabyUseCase implements BaseUseCase<GetBabyUseCaseInput, 
         const baby = await this.babyRepository.findById(input.babyId)
 
         if(!baby){
-            console.log(`Baby ${input.babyId} not found`)
-            throw new NotFoundException();
+            throw new NotFoundException(`Baby ${input.babyId} not found`);
         }
 
         return {
@@ -32,7 +31,9 @@ export default class GetBabyUseCase implements BaseUseCase<GetBabyUseCaseInput, 
             diaperChanges: baby.diaper,
             feedings: baby.feedings,
             mood: baby.mood,
-            naps: baby.naps
+            naps: baby.naps,
+            currentLength: baby.currentLength,
+            currentWeight: baby.currentWeight
         }
     }
 }

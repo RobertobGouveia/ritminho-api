@@ -35,6 +35,12 @@ export class RegisterAuthValidator implements BaseValidator<RegisterAuthUseCaseI
                                 .required(),
                             gender: Joi
                                 .string()
+                                .required(),
+                            currentLength: Joi
+                                .number()
+                                .required(),
+                            currentWeight: Joi
+                                .number()
                                 .required()
                         })).required()
                     }).required()

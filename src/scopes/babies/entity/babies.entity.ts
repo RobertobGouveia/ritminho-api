@@ -38,6 +38,12 @@ export class Baby {
 
     @OneToMany(() => Mood, mood => mood.baby, { onDelete: 'CASCADE', cascade: true})
     mood: Mood[];
+
+    @Column({ name: 'CURRENT_WEIGHT', default: 0 })
+    currentWeight: number;
+
+    @Column({ name: 'CURRENT_LENGTH', default: 0 })
+    currentLength: number;
     
     @CreateDateColumn({ name: 'CREATED_AT' })
     createdAt: Date;
