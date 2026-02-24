@@ -9,4 +9,4 @@ import { CreateActivitiesValidator } from "./createActivities.validator";
     providers:[CreateActivitesUseCase, CreateActivitiesValidator],
     exports:[CreateActivitesUseCase]
 })
-export class CreateActivitiesUseCaseModule{}
+export class CreateActivitiesUseCaseModule{}    
