@@ -14,7 +14,7 @@ describe('CreateActivitiesUseCase', () => {
         validator = { validate: jest.fn().mockResolvedValue(undefined)} as any;
         babyRepository = { findById : jest.fn().mockResolvedValue({
             id: 'baby-1',
-            name: 'Baby',
+            name: 'Baby 1',
             birthDate: new Date(),
             gender: 'male',
             currentLength: 50,
