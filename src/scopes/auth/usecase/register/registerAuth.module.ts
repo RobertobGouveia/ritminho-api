@@ -8,15 +8,15 @@ import RegisterAuthUsecase from "./registerAuth.usecase";
 import { BabyRepositoryModule } from "src/scopes/babies/repository";
 import CreateBabyValidator from "src/scopes/babies/usecase/create/createBaby.validator";
 import CreateUserValidator from "src/scopes/users/usecase/create/createUser.validator";
+import { CreateUserModule } from "src/scopes/users/usecase/create/createUser.module";
 
 @Module({
-    imports: [ UserRepositoryModule, AuthRepositoryModule, BabyRepositoryModule ],
+    imports: [ UserRepositoryModule, AuthRepositoryModule, BabyRepositoryModule, CreateUserModule ],
     providers: [
         RegisterAuthUsecase, 
         CreateUserUseCase, 
         RegisterAuthValidator, 
-        CreateBabyUseCase, 
-        CreateUserValidator,
+        CreateBabyUseCase,
         CreateBabyValidator
     ],
     exports: [CreateUserUseCase, RegisterAuthUsecase]

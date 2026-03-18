@@ -7,7 +7,7 @@ import CreateUserValidator from "./createUser.validator";
 @Module({
     imports: [ UserRepositoryModule, AuthRepositoryModule ],
     providers: [CreateUserUseCase, CreateUserValidator],
-    exports: [CreateUserUseCase]
+    exports: [CreateUserUseCase, CreateUserValidator]
 })
 
 export class CreateUserModule{}
