@@ -12,7 +12,14 @@ describe('CreateActivitiesUseCase', () => {
 
     beforeEach(() => {
         validator = { validate: jest.fn().mockResolvedValue(undefined)} as any;
-        babyRepository = { findById : jest.fn().mockResolvedValue(null)} as any;
+        babyRepository = { findById : jest.fn().mockResolvedValue({
+            id: 'baby-1',
+            name: 'Baby',
+            birthDate: new Date(),
+            gender: 'male',
+            currentLength: 50,
+            currentWeight: 3.2,
+        })} as any;
         activitiesRepository = {
             create: jest.fn().mockResolvedValue([
                 { id: 'activities-1' }
