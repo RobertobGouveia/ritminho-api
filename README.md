@@ -90,18 +90,6 @@ Criar uma solução simples, intuitiva e inteligente para:
 
 ---
 
-## 🤝 Contribuição
-
-Sinta-se à vontade para abrir issues ou pull requests com melhorias, sugestões ou correções.
-
----
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT.
-
----
-
 ## 👨‍💻 Autor
 
 Desenvolvido por **Roberto Barreto**  
