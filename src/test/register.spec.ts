@@ -43,11 +43,15 @@ describe('RegisterAuthUsecase', () => {
                 name: 'Baby 1',
                 birthDate: new Date('2020-05-20T22:34:00.000Z'),
                 gender: 'male',
+                currentLength: 50,
+                currentWeight: 3.5
             },
             {
                 name: 'Baby 2',
                 birthDate: new Date('2020-05-20T22:34:00.000Z'),
-                gender: 'male'
+                gender: 'male',
+                currentLength: 55,
+                currentWeight: 3.3
             }
         ],
       },
