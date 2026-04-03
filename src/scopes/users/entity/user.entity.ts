@@ -11,7 +11,7 @@ export class User {
     @Column({ name: 'NAME'})
     name: string;
 
-    @OneToOne(() => Auth)
+    @OneToOne(() => Auth, (auth) => auth.user)
     @JoinColumn({ name: 'AUTH_ID', referencedColumnName: 'id' })
     auth: Auth;
 

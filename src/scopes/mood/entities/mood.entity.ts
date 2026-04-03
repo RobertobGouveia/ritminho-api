@@ -11,7 +11,7 @@ export class Mood {
     @JoinColumn({ name: 'BABY_ID', referencedColumnName: 'id' })
     baby: Baby;
 
-    @Column({ name: 'MOOD' })
+    @Column({ name: 'MOOD', type: 'enum', enum: MoodTypeEnum })
     moodType: MoodTypeEnum;
 
     @CreateDateColumn({ name: 'CREATED_AT' })

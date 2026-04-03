@@ -11,7 +11,7 @@ export class Feedings {
     @JoinColumn({ name: 'BABY_ID', referencedColumnName: 'id' })
     baby: Baby;
 
-    @Column({ name: 'TYPE' })
+    @Column({ name: 'TYPE', enum: FeedingsTypeEnum, type: 'enum' })
     type: FeedingsTypeEnum;
 
     @Column({ name: 'VOLUME', nullable: true })
@@ -27,5 +27,5 @@ export class Feedings {
     createdAt: Date;
 
     @UpdateDateColumn({ name: 'UPDATED_AT' })
-    updatedAt: string;
+    updatedAt: Date;
 }

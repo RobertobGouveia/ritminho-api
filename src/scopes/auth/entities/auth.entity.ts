@@ -1,5 +1,5 @@
 import { User } from "src/scopes/users/entity/user.entity";
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity({ name: 'AUTH'})
 export class Auth {
@@ -11,6 +11,9 @@ export class Auth {
 
     @Column( { name: 'PASSWORD', nullable: true})
     password: string;
+
+    @OneToOne(() => User, (user) => user.auth)
+    user: User;
 
     @CreateDateColumn( { name: 'CREATED_AT' })
     createdAt: Date;

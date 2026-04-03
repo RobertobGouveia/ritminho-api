@@ -11,7 +11,7 @@ export class DiaperChanges {
     @JoinColumn({ name: 'BABY_ID', referencedColumnName: 'id'})
     baby: Baby;
 
-    @Column({ name: 'TYPE'})
+    @Column({ name: 'TYPE', type: 'enum', enum: DiaperTypesEnum })
     type: DiaperTypesEnum;
 
     @Column({ name: 'DETAILS', nullable: true })

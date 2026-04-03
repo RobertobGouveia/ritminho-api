@@ -11,7 +11,7 @@ export class Activities {
     @JoinColumn({ name: 'BABY_ID'})
     baby: Baby;
 
-    @Column({ name: 'TYPE'})
+    @Column({ name: 'TYPE', enum: ActivitiesEnum, type: 'enum' })
     type: ActivitiesEnum
 
     @Column({ name: 'DESCRIPTION', nullable: true})
