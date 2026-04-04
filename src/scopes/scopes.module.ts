@@ -9,15 +9,16 @@ import { MoodModule } from "./mood/mood.module";
 import { NapsModule } from "./naps/naps.module";
 
 @Module({
-    imports:[AuthModule,
-         BabiesModule, 
-         FeedingsModule,
-         UsersModule,
-         ActivitiesModule,
-         DiaperChangesModule,
-         MoodModule,
-         NapsModule
-        ],
+    imports:[
+        AuthModule,
+        BabiesModule, 
+        FeedingsModule,
+        UsersModule,
+        ActivitiesModule,
+        DiaperChangesModule,
+        MoodModule,
+        NapsModule
+    ],
     providers:[],
     exports:[]
 })

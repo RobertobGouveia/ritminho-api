@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOptions } from './config/dataBase.config';
 import { ScopesModule } from './scopes/scopes.module';
+import { AiModule } from './AI Module/ai.module';
 
 @Module({
   imports: [
@@ -15,7 +16,8 @@ import { ScopesModule } from './scopes/scopes.module';
       ]
 }),
   TypeOrmModule.forRoot(dataSourceOptions),
-  ScopesModule
+  ScopesModule,
+  AiModule,
 ],
   controllers: [AppController],
   providers: [],
