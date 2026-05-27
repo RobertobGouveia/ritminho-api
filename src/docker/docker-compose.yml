@@ -1,6 +1,29 @@
 version: "3.9"
 
 services:
+  zookeeper:
+    image: bitnami/zookeeper:latest
+    container_name: ritminho-zookeeper
+    environment:
+      - ALLOW_ANONYMOUS_LOGIN=yes
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: bitnami/kafka:latest
+    container_name: ritminho-kafka
+    environment:
+      - KAFKA_BROKER_ID=1
+      - KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://0.0.0.0:9092
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://kafka:9092
+      - KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR=1
+      - ALLOW_PLAINTEXT_LISTENER=yes
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+
   db:
     image: postgres:15
     container_name: ritminho-db
@@ -13,22 +36,24 @@ services:
     volumes:
       - db_data:/var/lib/postgresql/data
 
-    api:
-      build:
-        context: .
-        dockerfile: dockerfile
-      container_name: ritminho-api
-      ports:
-        - "3000:3000"
-      environment:
-        - DB_TYPE=postgres
-        - DB_HOST=db
-        - DB_PORT=5432
-        - DB_USERNAME=postgres
-        - DB_PASSWORD=${DB_PASSWORD}
-        - DB_NAME=ritminho
-      depends_on: 
-        - db
+  api:
+    build:
+      context: ../..
+      dockerfile: ../../dockerfile
+    container_name: ritminho-api
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_TYPE=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_USERNAME=postgres
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=ritminho
+      - KAFKA_BROKER=kafka:9092
+    depends_on:
+      - db
+      - kafka
         
 volumes:
   db_data: 

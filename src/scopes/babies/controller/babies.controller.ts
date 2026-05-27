@@ -1,11 +1,13 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, UseGuards } from "@nestjs/common";
 import CreateBabyUseCase from "../usecase/create/createBaby.usecase";
 import { CreateBabyRequest } from "./transport/createBaby.request";
 import { GetBabyResponse } from "./transport/getBabyResponse";
 import GetBabyUseCase from "../usecase/get/getBaby.usecase";
 import { UpdateBabyRequest } from "./transport/updateBabyRequest";
 import { UpdateBabyUseCase } from "../usecase/update/updateBaby.usecase";
+import { JwtGuard } from "src/infrastructure/authentication/jwt.guard";
 
+@UseGuards(JwtGuard)
 @Controller('v1/baby')
 export class BabyController {
     constructor(
@@ -19,10 +21,11 @@ export class BabyController {
     async createBaby (
         @Body() request: CreateBabyRequest
     ) {
-        return this.createBabyUseCase.execute({
+        const result = await this.createBabyUseCase.execute({
             userId: request.userId,
             babies: request.babies
         })
+        return result;
     }
 
     @Get(':babyId')
