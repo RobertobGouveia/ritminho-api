@@ -1,10 +1,30 @@
+import { IsArray, IsDate, IsNumber, IsString, ValidateNested } from "class-validator";
+import { Type } from 'class-transform';
+
 export class CreateBabyUseCaseInput {
+    @IsString()
     userId: string;
-    babies: {
-        name: string;
-        birthDate: Date;
-        gender: string;
-        currentLength: number
-        currentWeight: number;
-    }[];
+
+    @IsArray()
+    @ValidateNested({ each: true })
+    @Type(() => Baby)
+    babies: Baby[];
 }
+
+export class Baby {
+    @IsString()
+    name: string;
+
+    @Type(() => Date)
+    @IsDate()
+    birthDate: Date;
+
+    @IsString()
+    gender: string;
+
+    @IsNumber()
+    currentLength: number
+
+    @IsNumber()
+    currentWeight: number;
+}[];

@@ -20,6 +20,10 @@ export default class CreateUserUseCase implements BaseUseCase<CreateUserUseCaseI
 
         const auth = await this.authRepository.findById(input.authId)
 
+        if(auth.user){
+            throw new Error(`Auth with email ${auth.email} already has a user associated.`)
+        }
+
         const user = new User();
         user.name = input.name;
         user.auth = auth
