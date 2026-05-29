@@ -1,8 +1,8 @@
-import { IsArray, IsDate, IsNumber, IsString, ValidateNested } from "class-validator";
-import { Type } from 'class-transform';
+import { IsArray, IsDate, IsNumber, IsString, IsUUID, ValidateNested } from "class-validator";
+import { Type } from 'class-transformer';
 
 export class CreateBabyUseCaseInput {
-    @IsString()
+    @IsUUID()
     userId: string;
 
     @IsArray()
@@ -27,4 +27,4 @@ export class Baby {
 
     @IsNumber()
     currentWeight: number;
-}[];
+}

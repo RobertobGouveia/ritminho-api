@@ -1,6 +1,6 @@
 import { IsArray, IsDate, IsEmail, IsNumber, IsString, ValidateNested } from "class-validator";
 
-import { Type } from 'class-transform';
+import { Type } from 'class-transformer';
 
 
 export class RegisterAuthUseCaseInput {
@@ -38,7 +38,7 @@ export class Baby {
 
     @IsNumber()
     currentLength: number;
-    
+
     @IsNumber()
     currentWeight: number;
 }

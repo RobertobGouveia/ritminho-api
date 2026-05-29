@@ -1,7 +1,4 @@
-export class CreateMoodUseCaseInput {
-    babyId: string;
-    mood: MoodTypeEnum
-}
+import { IsEnum, IsUUID } from "class-validator";
 
 enum MoodTypeEnum {
     CALM = "CALM",
@@ -13,4 +10,12 @@ enum MoodTypeEnum {
     PLAYFUL = "PLAYFUL",
     HUNGRY = "HUNGRY",
     OTHER = 'OTHER'
+}
+
+export class CreateMoodUseCaseInput {
+    @IsUUID()
+    babyId: string;
+
+    @IsEnum(MoodTypeEnum)
+    mood: MoodTypeEnum
 }

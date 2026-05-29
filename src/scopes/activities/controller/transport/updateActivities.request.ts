@@ -1,12 +1,23 @@
-export class UpdateActivitiesRequest{
-    babyId: string;
-    activityId: string;
-    type?: ActivitiesEnum;
-    description?: string;
-}
+import { IsEnum, IsOptional, IsString, IsUUID } from "class-validator";
 
-enum ActivitiesEnum {
+export enum ActivitiesEnum {
     BATH = 'BATH',
     WALK = 'WALK',
     PLAY = 'PLAY'
+}
+
+export class UpdateActivitiesRequest{
+    @IsUUID()
+    babyId: string;
+
+    @IsString()
+    activityId: string;
+    
+    @IsOptional()
+    @IsEnum(ActivitiesEnum)
+    type?: ActivitiesEnum;
+
+    @IsString()
+    @IsOptional()
+    description?: string;
 }

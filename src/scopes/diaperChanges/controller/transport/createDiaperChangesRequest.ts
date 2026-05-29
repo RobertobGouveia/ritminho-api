@@ -1,11 +1,19 @@
-export class CreateDiaperChangesRequest {
-    babyId: string;
-    type: DiaperTypesEnum;
-    details?: string;
-}
+import { IsEnum, IsOptional, IsString, IsUUID } from "class-validator";
 
 enum DiaperTypesEnum {
     PEE = 'PEE',
     POOP = 'POOP',
-    PEE_AND_POOP = 'PEE_END_POOP'  
+    PEE_AND_POOP = 'PEE_AND_POOP'  
+}
+
+export class CreateDiaperChangesRequest {
+    @IsUUID()
+    babyId: string;
+
+    @IsEnum(DiaperTypesEnum)
+    type: DiaperTypesEnum;
+
+    @IsOptional()
+    @IsString()
+    details?: string;
 }
