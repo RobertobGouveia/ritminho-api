@@ -2,20 +2,17 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import BaseUseCase from "src/infrastructure/usecase/baseUseCase";
 import { UpdateMoodUseCaseInput } from "./updateMood.usecase.input";
 import { UpdateMoodUseCaseOutput } from "./updateMood.usecase.output";
-import { UpdateMoodValidator } from "./updateMood.validator";
 import { BabyRepository } from "src/scopes/babies/repository";
 import { MoodRepository } from "../../repository/mood.repositoy";
 
 @Injectable()
 export class UpdateMoodUseCase implements BaseUseCase<UpdateMoodUseCaseInput, UpdateMoodUseCaseOutput>{
     constructor(
-        private readonly validator: UpdateMoodValidator,
         private readonly babyRepository: BabyRepository,
         private readonly moodRepository: MoodRepository
     ){}
 
     async execute(input?: UpdateMoodUseCaseInput): Promise<UpdateMoodUseCaseOutput> {
-        await this.validator.validate(input);
 
         const baby = await this.babyRepository.findById(input.babyId)
 

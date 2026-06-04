@@ -4,7 +4,9 @@ import { CreateActivitiesRequest } from "./transport/createActivities.request";
 import { GetActivitiesResponse } from "./transport/getActivities.response";
 import { GetActivitiesUseCase } from "../usecases/get/getActivities.usecase";
 import { UpdateActivitiesRequest } from "./transport/updateActivities.request";
+import { UpdateActivitiesRequestParam } from "./transport/updateActivitiesParam.request";
 import { UpdateActivitiesUseCase } from "../usecases/update/updateActivities.usecase";
+import { GetActivitiesRequest } from "./transport/getActivities.request";
 
 @Controller('v1/activities')
 export class ActivitiesController {
@@ -28,23 +30,22 @@ export class ActivitiesController {
     @Get(':babyId')
     @HttpCode(HttpStatus.OK)
     async getActivities (
-        @Param('babyId') babyId: string
+        @Param() babyId: GetActivitiesRequest
     ): Promise<GetActivitiesResponse[]> {
         return this.getActivitiesUseCase.execute({
-            babyId: babyId
+            babyId: babyId.babyId
         })
     }
 
     @Put('/update/:babyId/:activityId')
     @HttpCode(HttpStatus.OK)
     async updateActivities(
-        @Param('babyId') babyId: string,
-        @Param('activityId') activityid: string,
+        @Param() params: UpdateActivitiesRequestParam,
         @Body() request: UpdateActivitiesRequest
     ) {
         return this.updateActivitiesUseCase.execute({
-            babyId: babyId,
-            activityId: activityid,
+            babyId: params.babyId,
+            activityId: params.activityId,
             type: request.type,
             description: request.description
         })

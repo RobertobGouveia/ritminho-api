@@ -1,6 +1,6 @@
 import { IsUUID } from "class-validator";
 
-export class GetMoodUseCaseInput {
+export  class GetBabyRequest {
     @IsUUID()
-    babyId: string;
+    babyId: string
 }

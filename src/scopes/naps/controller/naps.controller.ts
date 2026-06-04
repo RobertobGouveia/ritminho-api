@@ -4,7 +4,9 @@ import { CreateNapsUseCase } from "../usecase/create/createNaps.usecase";
 import { NapsReponse } from "./transport/getNapsReponse";
 import { GetNapsUseCase } from "../usecase/get/getNaps.usecase";
 import { UpdateNapsRequest } from "./transport/updateNapsRequest";
+import { UpdateNapsRequestParam } from "./transport/updateNapsParam.request";
 import { UpdateNapsUseCase } from "../usecase/update/updateNaps.usecase";
+import { GetNapsRequest } from "./transport/getNaps.request";
 
 @Controller('v1/naps')
 export class NapsController {
@@ -28,23 +30,22 @@ export class NapsController {
     @Get(':babyId')
     @HttpCode(HttpStatus.OK)
     async getNaps (
-        @Param('babyId') babyId: string
+        @Param() babyId: GetNapsRequest
     ): Promise<NapsReponse[]>{
         return this.getNapsUseCase.execute({
-            babyId: babyId
+            babyId: babyId.babyId
         })
     }
 
     @Put('/update/:babyId/:napId')
     @HttpCode(HttpStatus.OK)
     async updateNaps(
-        @Param('babyId') babyId: string,
-        @Param('napId') napId: string,
+        @Param() params: UpdateNapsRequestParam,
         @Body() request: UpdateNapsRequest
     ){
         return this.updateNapsUseCase.execute({
-            babyId: babyId,
-            napId: napId,
+            babyId: params.babyId,
+            napId: params.napId,
             startedAt: request.startedAt,
             endedAt: request.endedAt
         })

@@ -6,8 +6,10 @@ import GetBabyUseCase from "../usecase/get/getBaby.usecase";
 import { UpdateBabyRequest } from "./transport/updateBabyRequest";
 import { UpdateBabyUseCase } from "../usecase/update/updateBaby.usecase";
 import { JwtGuard } from "src/infrastructure/authentication/jwt.guard";
+import { GetBabyRequest } from "./transport/getBaby.request";
+import { UpdateBabyRequestParam } from "./transport/updateBabyParam.request";
 
-@UseGuards(JwtGuard)
+//@UseGuards(JwtGuard)
 @Controller('v1/baby')
 export class BabyController {
     constructor(
@@ -31,10 +33,10 @@ export class BabyController {
     @Get(':babyId')
     @HttpCode(HttpStatus.OK)
     async getBaby (
-        @Param('babyId') babyId: string
+        @Param() babyId: GetBabyRequest
     ) : Promise<GetBabyResponse>{
         const result =  await this.getBabyUseCase.execute({
-            babyId: babyId
+            babyId: babyId.babyId
         })
 
         return {
@@ -55,11 +57,11 @@ export class BabyController {
     @Put('/update/:babyId')
     @HttpCode(HttpStatus.OK)
     async updateBaby(
-        @Param('babyId') babyId: string,
+        @Param() babyId: UpdateBabyRequestParam,
         @Body() request: UpdateBabyRequest
     ){
         return this.updateBabyUsCase.execute({
-            babyId: babyId,
+            babyId: babyId.babyId,
             name: request.name,
             birthDate: request.birthDate,
             gender: request.gender,

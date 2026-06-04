@@ -1,5 +1,5 @@
 import { Type } from "class-transformer";
-import { IsDate, IsEnum, IsNumber, IsOptional, IsUUID } from "class-validator";
+import { IsDate, IsEnum, IsNumber, IsOptional } from "class-validator";
 
 
 enum FeedingsTypeEnum {
@@ -8,12 +8,6 @@ enum FeedingsTypeEnum {
 }
 
 export class UpdateFeedingsRequest{
-    @IsUUID()
-    babyId: string;
-
-    @IsUUID()
-    feedingsId: string;
-
     @IsOptional()
     @IsEnum(FeedingsTypeEnum)
     type?: FeedingsTypeEnum;

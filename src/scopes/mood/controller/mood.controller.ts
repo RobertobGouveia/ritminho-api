@@ -5,7 +5,9 @@ import { GetFeedingsUseCase } from "src/scopes/feedings/usecase/get/getFeedings.
 import { GetMoodUseCase } from "../usecase/get/getMood.usecase";
 import { MoodResponse } from "./transport/getMoodResponse";
 import { UpdateMoodRequest } from "./transport/updateMoodrequest";
+import { UpdateMoodRequestParam } from "./transport/updateMoodParam.request";
 import { UpdateMoodUseCase } from "../usecase/update/updateMood.usecase";
+import { GetMoodRequest } from "./transport/getMood.request";
 
 @Controller('v1/mood')
 export class MoodController {
@@ -29,23 +31,22 @@ export class MoodController {
     @Get(':babyId')
     @HttpCode(HttpStatus.OK)
     async getMood (
-        @Param('babyId') babyId: string
+        @Param() babyId: GetMoodRequest
     ): Promise<MoodResponse[]> {
         return this.getMoodUseCase.execute({
-            babyId: babyId
+            babyId: babyId.babyId
         })
     }
 
     @Put('/update/:babyId/:moodId')
     @HttpCode(HttpStatus.OK)
     async updateMood (
-        @Param('babyId') babyId: string,
-        @Param('moodId') moodId: string,
+        @Param() params: UpdateMoodRequestParam,
         @Body() request: UpdateMoodRequest
     ) {
         return this.updateMoodUseCase.execute({
-            babyId: babyId,
-            moodId: moodId,
+            babyId: params.babyId,
+            moodId: params.moodId,
             mood: request.mood
         })
     }

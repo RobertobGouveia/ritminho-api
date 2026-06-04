@@ -3,7 +3,6 @@ import BaseUseCase from "src/infrastructure/usecase/baseUseCase";
 import { CreateDiaperChangesUseCaseInput } from "./createDiaperChanges.usecase.input";
 import { CreateDiaperChangesUseCaseOutput } from "./createDiaperChanges.usecase.output";
 import { BabyRepository } from "src/scopes/babies/repository";
-import { CreateDiaperChangesValidator } from "./createDiaperChanges.validator";
 import { DiaperChanges } from "../../entities/diaperChanges.entity";
 import { DiaperChangesRepository } from "../../repository/diaperChanges.repository";
 
@@ -11,12 +10,10 @@ import { DiaperChangesRepository } from "../../repository/diaperChanges.reposito
 export class CreateDiaperChangesUseCase implements BaseUseCase<CreateDiaperChangesUseCaseInput, CreateDiaperChangesUseCaseOutput>{
     constructor(
         private readonly babyRepository: BabyRepository,
-        private readonly validator: CreateDiaperChangesValidator,
         private readonly diaperChangesRepository: DiaperChangesRepository
     ){}
 
     async execute(input?: CreateDiaperChangesUseCaseInput): Promise<CreateDiaperChangesUseCaseOutput> {
-        await this.validator.validate(input);
 
         const baby = await this.babyRepository.findById(input.babyId)
 

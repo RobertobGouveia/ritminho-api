@@ -4,7 +4,9 @@ import { CreateDiaperChangesRequest } from "./transport/createDiaperChangesReque
 import { DiaperChangesResponse } from "./transport/getDiaperChangesResponse";
 import { GetDiaperChangesUseCase } from "../usecase/get/getDiaperChanges.usecase";
 import { UpdateDiaperChangesRequest } from "./transport/updateDiaperChanges.request";
+import { UpdateDiaperChangesRequestParam } from "./transport/updateDiaperChangesParam.request";
 import { UpdateDiaperChangesUseCase } from "../usecase/update/updateDiaperChanges.usecase";
+import { GetActivitiesRequest } from "./transport/getDiaperChanges.request";
 
 @Controller('v1/diaper-changes')
 export class DiaperChangesController {
@@ -29,23 +31,22 @@ export class DiaperChangesController {
     @Get(':babyId')
     @HttpCode(HttpStatus.OK)
     async getDiaperChanges (
-        @Param('babyId') babyId: string
+        @Param() babyId: GetActivitiesRequest
     ): Promise<DiaperChangesResponse[]> {
         return await this.getDiaperChangesUseCase.execute({
-            babyId: babyId
+            babyId: babyId.babyId
         })
     }
 
     @Put('/update/:babyId/:diaperId')
     @HttpCode(HttpStatus.OK)
     async updateDiaperChanges (
-        @Body() request: UpdateDiaperChangesRequest,
-        @Param('babyId') babyId: string,
-        @Param('diaperId') diaperId: string
+        @Param() params: UpdateDiaperChangesRequestParam,
+        @Body() request: UpdateDiaperChangesRequest
     ) {
         return await this.updateDiaperChangesUseCase.execute({
-            babyId: babyId,
-            diaperId: diaperId,
+            babyId: params.babyId,
+            diaperId: params.diaperId,
             type: request.type,
             details: request.details
         })

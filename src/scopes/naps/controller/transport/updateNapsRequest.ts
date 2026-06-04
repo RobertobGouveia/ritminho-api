@@ -1,13 +1,7 @@
 import { Type } from "class-transformer";
-import { IsDate, IsOptional, IsUUID } from "class-validator";
+import { IsDate, IsOptional } from "class-validator";
 
 export class UpdateNapsRequest {
-    @IsUUID()
-    babyId: string;
-
-    @IsUUID()
-    napId: string;
-    
     @Type(() => Date)
     @IsDate()
     @IsOptional()

@@ -1,4 +1,4 @@
-import { IsEnum, IsUUID } from "class-validator";
+import { IsEnum } from "class-validator";
 
 enum MoodTypeEnum {
     CALM = "CALM",
@@ -13,12 +13,6 @@ enum MoodTypeEnum {
 }
 
 export class UpdateMoodRequest{
-    @IsUUID()
-    babyId: string;
-
-    @IsUUID()
-    moodId: string;
-
     @IsEnum(MoodTypeEnum)
     mood: MoodTypeEnum;
 }

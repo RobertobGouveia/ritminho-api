@@ -2,20 +2,17 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import BaseUseCase from "src/infrastructure/usecase/baseUseCase";
 import { UpdateFeedingsUseCaseInput } from "./updateFeedings.usecase.input";
 import { UpdateFeedingsUseCaseOutput } from "./updateFeedings.usecase.output";
-import { UpdateFeedingsValidator } from "./updateFeedings.validator";
 import { BabyRepository } from "src/scopes/babies/repository";
 import { FeedingsRepository } from "src/scopes/feedings/repository";
 
 @Injectable()
 export class UpdateFeedingsUseCase implements BaseUseCase<UpdateFeedingsUseCaseInput, UpdateFeedingsUseCaseOutput>{
     constructor(
-        private readonly validador: UpdateFeedingsValidator,
         private readonly babyRepository: BabyRepository,
         private readonly feedingsRepository: FeedingsRepository
     ){}
 
     async execute(input?: UpdateFeedingsUseCaseInput): Promise<UpdateFeedingsUseCaseOutput> {
-        await this.validador.validate(input)
 
         const baby = await this.babyRepository.findById(input.babyId)
 

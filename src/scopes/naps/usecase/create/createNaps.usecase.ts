@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import BaseUseCase from "src/infrastructure/usecase/baseUseCase";
 import { CreateNapsUseCaseInput } from "./createNaps.usecase.input";
 import { CreateNapsUseCaseOutput } from "./createNaps.usecase.output";
-import { CreateNapsValidator } from "./createNaps.validator";
 import { BabyRepository } from "src/scopes/babies/repository";
 import { Naps } from "../../entities/naps.entity";
 import { NapsRepository } from "../../repository/naps.repository";
@@ -10,13 +9,11 @@ import { NapsRepository } from "../../repository/naps.repository";
 @Injectable()
 export class CreateNapsUseCase implements BaseUseCase<CreateNapsUseCaseInput, CreateNapsUseCaseOutput> {
     constructor(
-        private readonly validator: CreateNapsValidator,
         private readonly babyRepository: BabyRepository,
         private readonly napsRepository: NapsRepository
     ){}
 
     async execute(input?: CreateNapsUseCaseInput): Promise<CreateNapsUseCaseOutput> {
-        await this.validator.validate(input);
 
         const baby = await this.babyRepository.findById(input.babyId)
 

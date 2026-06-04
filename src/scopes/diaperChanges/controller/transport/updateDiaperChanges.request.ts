@@ -1,4 +1,4 @@
-import { IsEnum, IsOptional, IsString, IsUUID } from "class-validator";
+import { IsEnum, IsOptional, IsString } from "class-validator";
 
 enum DiaperTypesEnum {
     PEE = 'PEE',
@@ -7,12 +7,6 @@ enum DiaperTypesEnum {
 }
 
 export class UpdateDiaperChangesRequest {
-    @IsUUID()
-    babyId: string;
-
-    @IsUUID()
-    diaperId: string;
-
     @IsOptional()
     @IsEnum(DiaperTypesEnum)
     type?: DiaperTypesEnum;

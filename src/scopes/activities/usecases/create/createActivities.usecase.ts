@@ -2,7 +2,6 @@ import { Injectable, NotFoundException } from "@nestjs/common";
 import BaseUseCase from "src/infrastructure/usecase/baseUseCase";
 import { CreateActivitiesUseCaseInput } from "./createActivities.usecase.input";
 import { CreateActivitiesUseCaseOutput } from "./createActivities.usecase.output";
-import { CreateActivitiesValidator } from "./createActivities.validator";
 import { BabyRepository } from "src/scopes/babies/repository";
 import { Activities } from "../../entities/activities.entity";
 import { ActivitiesRepository } from "../../repository/activities.repository";
@@ -10,14 +9,12 @@ import { ActivitiesRepository } from "../../repository/activities.repository";
 @Injectable()
 export class CreateActivitesUseCase implements BaseUseCase<CreateActivitiesUseCaseInput, CreateActivitiesUseCaseOutput>{
     constructor(
-        private readonly validator: CreateActivitiesValidator,
         private readonly babyRepository: BabyRepository,
         private readonly activitiesRepository: ActivitiesRepository
     )
     {}
 
     async execute(input?: CreateActivitiesUseCaseInput): Promise<CreateActivitiesUseCaseOutput> {
-        await this.validator.validate(input)
 
         const baby = await this.babyRepository.findById(input.babyId)
 
