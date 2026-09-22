@@ -5,12 +5,14 @@ import { CreateFeedingsUseCaseOutput } from "./createFeedings.usecase.output";
 import { Feedings } from "../../entity/feedings.entity";
 import { FeedingsRepository } from "../../repository/feedings.repository";
 import { BabyRepository } from "src/scopes/babies/repository";
+import { KafkaService } from "src/kafka/kafka.service";
 
 @Injectable()
 export class CreateFeedingsUseCase implements BaseUseCase<CreateFeedingsUseCaseInput, CreateFeedingsUseCaseOutput> {
     constructor(
         private readonly createFeedingsRepository: FeedingsRepository,
-        private readonly babyRepository: BabyRepository
+        private readonly babyRepository: BabyRepository,
+        private readonly kafkaService: KafkaService
     ){}
 
     async execute(input?: CreateFeedingsUseCaseInput): Promise<CreateFeedingsUseCaseOutput> {
@@ -30,8 +32,12 @@ export class CreateFeedingsUseCase implements BaseUseCase<CreateFeedingsUseCaseI
 
 
         const feedingsSave = await this.createFeedingsRepository.create(feedings)
-        
-        
+
+        await this.kafkaService.emitFeedingCreated({
+            babyId: input.babyId,
+            feedingId: feedingsSave.id,
+        });
+
         return feedingsSave;
     }
 }
