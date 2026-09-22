@@ -6,6 +6,8 @@ import { dataSourceOptions } from './config/dataBase.config';
 import { ScopesModule } from './scopes/scopes.module';
 import { AiModule } from './AI Module/ai.module';
 import { KafkaModule } from './kafka/kafka.module';
+import { APP_GUARD } from '@nestjs/core';
+import { ThrottlerModule, ThrottlerGuard } from '@nestjs/throttler';
 
 @Module({
   imports: [
@@ -14,14 +16,25 @@ import { KafkaModule } from './kafka/kafka.module';
       envFilePath: [
         '.env.secrets',
         !!process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env.local',
-      ]
-}),
-  TypeOrmModule.forRoot(dataSourceOptions),
-  ScopesModule,
-  AiModule,
-  KafkaModule,
-],
+      ],
+    }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 6000,
+        limit: 10,
+      },
+    ]),
+    TypeOrmModule.forRoot(dataSourceOptions),
+    ScopesModule,
+    AiModule,
+    KafkaModule,
+  ],
   controllers: [AppController],
-  providers: [],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    }
+  ],
 })
 export class AppModule {}
