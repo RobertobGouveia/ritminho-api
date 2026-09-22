@@ -1,11 +1,8 @@
-import { IsArray, IsDate, IsNumber, IsString, IsUUID, ValidateNested } from "class-validator";
+import { IsArray, IsDate, IsNumber, IsString, ValidateNested } from "class-validator";
 
 import { Type } from 'class-transformer';
 
 export class CreateBabyRequest {
-    @IsUUID()
-    userId: string;
-
     @IsArray()
     @ValidateNested({ each: true })
     @Type(() => Baby)

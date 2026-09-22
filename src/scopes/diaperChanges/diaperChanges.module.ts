@@ -3,9 +3,10 @@ import { DiaperChangesUseCaseModule } from "./usecase/create/createDiaperChanges
 import { DiaperChangesController } from "./controller/diaperChanges.controller";
 import { GetDiaperChangesModule } from "./usecase/get/getDiaperChanges.module";
 import { UpdateDiaperChangesModule } from "./usecase/update/updateDiaperChanges.module";
+import { BabyOwnershipModule } from "../babies/guards/baby-ownership.module";
 
 @Module({
-    imports:[DiaperChangesUseCaseModule, GetDiaperChangesModule, UpdateDiaperChangesModule],
+    imports:[DiaperChangesUseCaseModule, GetDiaperChangesModule, UpdateDiaperChangesModule, BabyOwnershipModule],
     controllers:[DiaperChangesController]
 })
 export class DiaperChangesModule {}

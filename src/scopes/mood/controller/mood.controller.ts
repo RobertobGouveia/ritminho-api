@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { CreateMoodUseCase } from "../usecase/create/createMood.usecase";
 import { CreateMoodRequest } from "./transport/createMoodRequest";
 import { GetFeedingsUseCase } from "src/scopes/feedings/usecase/get/getFeedings.usecase";
@@ -8,7 +8,13 @@ import { UpdateMoodRequest } from "./transport/updateMoodrequest";
 import { UpdateMoodRequestParam } from "./transport/updateMoodParam.request";
 import { UpdateMoodUseCase } from "../usecase/update/updateMood.usecase";
 import { GetMoodRequest } from "./transport/getMood.request";
+import { JwtGuard } from "src/infrastructure/authentication/jwt.guard";
+import { BabyOwnershipGuard } from "src/scopes/babies/guards/baby-ownership.guard";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
+@ApiTags('Mood')
+@ApiBearerAuth('access-token')
+@UseGuards(JwtGuard, BabyOwnershipGuard)
 @Controller('v1/mood')
 export class MoodController {
     constructor(

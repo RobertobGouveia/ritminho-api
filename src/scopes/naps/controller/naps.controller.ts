@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { CreateNapsRequest } from "./transport/createNapsRequest";
 import { CreateNapsUseCase } from "../usecase/create/createNaps.usecase";
 import { NapsReponse } from "./transport/getNapsReponse";
@@ -7,7 +7,13 @@ import { UpdateNapsRequest } from "./transport/updateNapsRequest";
 import { UpdateNapsRequestParam } from "./transport/updateNapsParam.request";
 import { UpdateNapsUseCase } from "../usecase/update/updateNaps.usecase";
 import { GetNapsRequest } from "./transport/getNaps.request";
+import { JwtGuard } from "src/infrastructure/authentication/jwt.guard";
+import { BabyOwnershipGuard } from "src/scopes/babies/guards/baby-ownership.guard";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
+@ApiTags('Naps')
+@ApiBearerAuth('access-token')
+@UseGuards(JwtGuard, BabyOwnershipGuard)
 @Controller('v1/naps')
 export class NapsController {
     constructor(

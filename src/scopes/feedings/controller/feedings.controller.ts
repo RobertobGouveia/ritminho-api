@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { CreateFeedingsUseCase } from "../usecase/create/createFeedings.usecase";
 import { CreateFeedingsRequest } from "./transport/createFeedings.request";
 import { GetFeedingsUseCase } from "../usecase/get/getFeedings.usecase";
@@ -7,7 +7,13 @@ import { UpdateFeedingsRequest } from "./transport/updateFedings.request";
 import { UpdateFeedingsRequestParam } from "./transport/updateFeedingsParam.request";
 import { UpdateFeedingsUseCase } from "../usecase/update/updateFeedings.usecase";
 import { GetActivitiesRequest } from "./transport/getFeedings.request";
+import { JwtGuard } from "src/infrastructure/authentication/jwt.guard";
+import { BabyOwnershipGuard } from "src/scopes/babies/guards/baby-ownership.guard";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
+@ApiTags('Feedings')
+@ApiBearerAuth('access-token')
+@UseGuards(JwtGuard, BabyOwnershipGuard)
 @Controller('v1/feedings')
 export class FeedingsController {
     constructor(

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put } from "@nestjs/common";
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Put, UseGuards } from "@nestjs/common";
 import { CreateActivitesUseCase } from "../usecases/create/createActivities.usecase";
 import { CreateActivitiesRequest } from "./transport/createActivities.request";
 import { GetActivitiesResponse } from "./transport/getActivities.response";
@@ -7,7 +7,13 @@ import { UpdateActivitiesRequest } from "./transport/updateActivities.request";
 import { UpdateActivitiesRequestParam } from "./transport/updateActivitiesParam.request";
 import { UpdateActivitiesUseCase } from "../usecases/update/updateActivities.usecase";
 import { GetActivitiesRequest } from "./transport/getActivities.request";
+import { JwtGuard } from "src/infrastructure/authentication/jwt.guard";
+import { BabyOwnershipGuard } from "src/scopes/babies/guards/baby-ownership.guard";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
+@ApiTags('Activities')
+@ApiBearerAuth('access-token')
+@UseGuards(JwtGuard, BabyOwnershipGuard)
 @Controller('v1/activities')
 export class ActivitiesController {
     constructor(

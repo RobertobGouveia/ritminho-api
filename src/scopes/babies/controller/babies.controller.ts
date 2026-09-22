@@ -8,8 +8,13 @@ import { UpdateBabyUseCase } from "../usecase/update/updateBaby.usecase";
 import { JwtGuard } from "src/infrastructure/authentication/jwt.guard";
 import { GetBabyRequest } from "./transport/getBaby.request";
 import { UpdateBabyRequestParam } from "./transport/updateBabyParam.request";
+import { BabyOwnershipGuard } from "../guards/baby-ownership.guard";
+import { CurrentUser } from "src/infrastructure/authentication/authentication.decorator";
+import { ApiBearerAuth, ApiTags } from "@nestjs/swagger";
 
-//@UseGuards(JwtGuard)
+@ApiTags('Baby')
+@ApiBearerAuth('access-token')
+@UseGuards(JwtGuard, BabyOwnershipGuard)
 @Controller('v1/baby')
 export class BabyController {
     constructor(
@@ -21,10 +26,11 @@ export class BabyController {
     @Post('/create')
     @HttpCode(HttpStatus.CREATED)
     async createBaby (
+        @CurrentUser() user,
         @Body() request: CreateBabyRequest
     ) {
         const result = await this.createBabyUseCase.execute({
-            userId: request.userId,
+            userId: user.userId,
             babies: request.babies
         })
         return result;

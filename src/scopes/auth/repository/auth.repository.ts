@@ -20,7 +20,8 @@ export class AuthRepository {
         return this.authTypeOrmRepository.findOne({
             where: {
                 email: email
-            }
+            },
+            relations: ['user']
         })
     }
 

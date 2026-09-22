@@ -17,11 +17,24 @@ export class BabyRepository {
     }
 
     findById(babyId: string): Promise<Baby>{
-        return this.babyRepositoryTypeorm.findOne({ 
+        return this.babyRepositoryTypeorm.findOne({
             where: {
                 id: babyId
             },
             relations: ['user', 'activities', 'diaper', 'feedings', 'mood', 'naps']
          })
+    }
+
+    async findOwnerId(babyId: string): Promise<string | null> {
+        const baby = await this.babyRepositoryTypeorm.findOne({
+            where: { id: babyId },
+            relations: ['user'],
+            select: {
+                id: true,
+                user: { id: true }
+            }
+        })
+
+        return baby?.user?.id ?? null
     }
 }
