@@ -1,11 +1,28 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
-import { ValidationPipe } from '@nestjs/common';
+import { Logger, ValidationPipe } from '@nestjs/common';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
+  const logger = new Logger('Bootstrap');
   const app = await NestFactory.create(AppModule);
-  console.log(process.env.DB_PORT)
+
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('Ritminho API')
+    .setDescription('API para acompanhamento da rotina de bebês: sono, alimentação, humor, fraldas e atividades.')
+    .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'access-token',
+    )
+    .build();
+  const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup('docs', app, swaggerDocument);
 
   app.connectMicroservice<MicroserviceOptions>({
     transport: Transport.KAFKA,
@@ -27,7 +44,12 @@ async function bootstrap() {
 
   app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
-  await app.startAllMicroservices();
+  try {
+    await app.startAllMicroservices();
+  } catch (error) {
+    logger.warn(`Kafka indisponível, a API vai subir sem o consumidor de eventos: ${error.message}`);
+  }
+
   await app.listen(process.env.PORT || 3800, '0.0.0.0', () => {
     console.log(`Starting on PORT: ${process.env.PORT || 3800}`);
   });
